@@ -5,8 +5,10 @@ class UsersController < ApplicationController
         # @user = User.new(username: params[:username], email: params[:email], password: params[:password])
         @user = User.new(allowed_user_params)
         if @user.save
-        redirect_to new_user_path
+            flash.now[:success] = "Great! Your user has been created!"
+            redirect_to new_user_path
         else
+            flash.now[:error] = "Something went wrong..."
             render :new, status: :unprocessable_entity
         end
     end
