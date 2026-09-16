@@ -6,7 +6,7 @@ class UsersController < ApplicationController
         # @user = User.new(username: params[:username], email: params[:email], password: params[:password])
         @user = User.new(allowed_user_params)
         if @user.save
-            redirect_to new_user_path
+            redirect_to root_path
         else
             flash.now[:error] = true
             render :new, status: :unprocessable_entity
@@ -20,11 +20,19 @@ class UsersController < ApplicationController
     def update
         @user = User.find(params[:id])
         if @user.update(allowed_user_params)
-            redirect_to edit_user_path
+            redirect_to user_path
         else
             flash.now[:not_worked] = true
             render :edit, status: :unprocessable_entity
         end
+    end
+
+    def index
+        @users = User.all
+    end
+
+    def show
+      @user = User.find(params[:id])
     end
 
     private
