@@ -1,15 +1,29 @@
 class UsersController < ApplicationController
     def new
+        @user = User.new(username: "Alex")
     end
     def create
         # @user = User.new(username: params[:username], email: params[:email], password: params[:password])
         @user = User.new(allowed_user_params)
         if @user.save
-            flash.now[:success] = "Great! Your user has been created!"
             redirect_to new_user_path
         else
-            flash.now[:error] = "Something went wrong..."
+            flash.now[:error] = true
             render :new, status: :unprocessable_entity
+        end
+    end
+
+    def edit
+        @user = User.find(params[:id])
+    end
+
+    def update
+        @user = User.find(params[:id])
+        if @user.update(allowed_user_params)
+            redirect_to edit_user_path
+        else
+            flash.now[:not_worked] = true
+            render :edit, status: :unprocessable_entity
         end
     end
 

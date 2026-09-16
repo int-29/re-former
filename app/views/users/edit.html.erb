@@ -1,4 +1,4 @@
-<% if flash[:error] %>
+<% if flash[:not_worked] %>
     <ul>
         <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -7,11 +7,11 @@
 <% end %>
 
 <%= form_with model: @user do |user_form| %>
-    <%= user_form.label :username, "Your user name here"%>
+    <%= user_form.label :username, "Change name here"%>
     <%= user_form.text_field :username%>
-    <%= user_form.label :password, 'Your password here' %>
+    <%= user_form.label :password, 'Change password here' %>
     <%= user_form.password_field :password%> 
-    <%= user_form.label :email, "Your email here" %>
+    <%= user_form.label :email, "Change email here" %>
     <%= user_form.email_field :email, placeholder: "example@example.com" %>
-    <%= user_form.submit "Create" %>
+    <%= user_form.submit "Edit" %>
 <%end%>
